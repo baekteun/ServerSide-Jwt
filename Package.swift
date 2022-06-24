@@ -11,6 +11,10 @@ let package = Package(
         .package(url: "https://github.com/vapor/vapor.git", from: "4.0.0"),
         .package(url: "https://github.com/vapor/fluent.git", from: "4.0.0"),
         .package(url: "https://github.com/vapor/fluent-postgres-driver.git", from: "2.0.0"),
+        .package(url: "https://github.com/vapor/jwt.git", branch: "main"),
+        .package(url: "https://github.com/vapor/queues.git", branch: "main"),
+        .package(url: "https://github.com/vapor/queues-redis-driver.git", branch: "main"),
+        .package(url: "https://github.com/vapor-community/mailgun.git", from: "5.0.0")
     ],
     targets: [
         .target(
@@ -18,7 +22,10 @@ let package = Package(
             dependencies: [
                 .product(name: "Fluent", package: "fluent"),
                 .product(name: "FluentPostgresDriver", package: "fluent-postgres-driver"),
-                .product(name: "Vapor", package: "vapor")
+                .product(name: "Vapor", package: "vapor"),
+                .product(name: "JWT", package: "jwt"),
+                .product(name: "QueuesRedisDriver", package: "queues-redis-driver"),
+                .product(name: "Mailgun", package: "mailgun")
             ],
             swiftSettings: [
                 // Enable better optimizations when building in Release configuration. Despite the use of
@@ -31,6 +38,7 @@ let package = Package(
         .testTarget(name: "AppTests", dependencies: [
             .target(name: "App"),
             .product(name: "XCTVapor", package: "vapor"),
+            .product(name: "XCTQueues", package: "queues")
         ])
     ]
 )
